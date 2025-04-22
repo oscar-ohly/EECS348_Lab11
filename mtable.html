@@ -1,0 +1,61 @@
+<!--Code generated using DeepSeek-->
+<!DOCTYPE html> <!--signifies that file is run through HTML 5 -->
+<html lang="en"> <!--webpage language is english-->
+<head> <!-- marks start of the head of the webpage-->
+    <meta charset="UTF-8"> <!-- makes sure special characters and text doesn't change between languages-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--controls the zoom of the webpage-->
+    <title>Multiplication Table</title> <!-- shows the title given to the webpage-->
+    <!-- (lines 9-23) creates elements table, th, td, and th. Th, td describes the boxes of the table, and th is the background. Sets dimensions of elements-->
+    <style> 
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head> <!-- marks end of the head of the webpage-->
+<body> <!-- marks start of the body of the webpage-->
+    <h1>Multiplication Table</h1> <!-- displays header Multiplcation Table-->
+    <form method="post"> <!-- contains code in a form processable by the PHP script below-->
+        <label for="number">Enter a number:</label> <!-- creates a label number that is used as the max number for the table-->
+        <input type="number" id="number" name="number" min="1" required> <!-- gathers user input used as value for number-->
+        <button type="submit">Generate Table</button> <!-- creates button that runs PHP script-->
+    </form>
+
+    <?php <!-- signifies start of PHP script-->
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { <!--only runs script if in form "post" -->
+        $number = $_POST['number']; <!-- gets the number from the label number-->
+
+        if ($number < 1) { <!--(lines 37-38) checks if the number is valid and asks the user to try again if not-->
+            echo "<p>Please enter a number greater than or equal to 1.</p>";
+        } else { <!--runs if number is valid -->
+            echo "<table>"; <!--creates outside of table -->
+            echo "<tr><th>*</th>"; <!-- fills upper-left cell with "*"-->
+
+            for ($col = 1; $col <= $number; $col++) { <!--(lines 43-46) creates column indexes depending on number-->
+                echo "<th>$col</th>";
+            }
+            echo "</tr>";
+
+            for ($row = 1; $row <= $number; $row++) { <!--runs a number amount of times-->
+                echo "<tr>"; <!--starts a new row -->
+                echo "<th>$row</th>"; <!--fills left-most cell of row with row index-->
+                for ($col = 1; $col <= $number; $col++) { <!--runs a number amount of times-->
+                    echo "<td>" . ($row * $col) . "</td>"; <!--fills corresponding row and column with the product of their indexes, creating the table-->
+                } <!--ends inside loop-->
+                echo "</tr>"; <!--ends row-->
+            } <!--ends outside loop-->
+            echo "</table>"; <!--ends table creation-->
+        }
+    }
+    ?> <!--ends PHP script-->
+</body> <!--ends body of webpage-->
+</html> <!--ends file-->
